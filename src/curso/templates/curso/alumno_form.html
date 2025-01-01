@@ -1,0 +1,29 @@
+{% extends "curso/base.html" %}
+{% block contenido %}
+<div style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 100% del alto de la ventana */
+    text-align: center;
+    flex-direction: column;
+">
+    <h1>CREAR ALUMNO</h1>
+    <form method="post" style="margin-bottom: 20px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    
+    <a href="/" style="
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+    ">
+        Volver a la página principal
+    </a>
+</div>
+{% endblock contenido %}+

@@ -1,0 +1,27 @@
+{% extends "curso/base.html" %}
+
+{% block contenido %}
+<main style="text-align: center;">
+    <h1>Listado de Comisiones</h1>
+    <a href="{%url "curso:comision_create"%}"><button> Crear Comision</button></a>
+    <ul>
+        {% for object in object_list %}
+            <p>{{ object.curso}}{{ object.numero}}{{ object.fecha_inicio}}</p>
+        {% endfor %}
+    </ul>
+    
+    <a href="/" style="
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+">
+    Volver a la página principal
+</a>
+</main>
+{% endblock contenido %}
