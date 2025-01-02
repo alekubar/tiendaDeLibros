@@ -1,0 +1,12 @@
+{% extends "curso/base.html" %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <h2>Registrar Usuario</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Esto es crucial para mostrar el formulario -->
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+</div>
+{% endblock contenido %}

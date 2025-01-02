@@ -1,6 +1,11 @@
 from django.shortcuts import redirect, render
 from .models import Curso, Comision, Alumno
-from .forms import CursoForm , ComisionForm, AlumnoForm
+from .forms import CursoForm , ComisionForm, AlumnoForm, UserRegistrationForm
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     return render(request, "curso/index.html")
@@ -23,7 +28,7 @@ def curso_create(request):
          if form.is_valid():
             form.save()
             return redirect("curso:curso_list")
-    return render(request, "curso:curso_form.html" , {"form" :form})
+    return render(request, "curso/curso_form.html" , {"form" :form})
 
 
 
@@ -62,3 +67,24 @@ def alumno_create(request):
                form.save()
             return redirect("curso:alumno_list")
     return render(request, "curso/alumno_form.html" , {"form" :form})
+
+
+
+def register_user(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+
+            # Crear y guardar el usuario
+            User.objects.create_user(username=username, email=email, password=password)
+            
+            messages.success(request, "Usuario registrado exitosamente. ¡Ahora puedes iniciar sesión!")
+            return redirect('curso:login')  # Cambia 'curso:login' según tu URL para el login
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'curso/register.html', {'form': form})
+
+
