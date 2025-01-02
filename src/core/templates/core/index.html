@@ -1,16 +1,18 @@
 {% extends 'core/base.html' %}
 
-{%block contenido %}
+{% block contenido %}
 <div style="text-align: center; padding: 20px;">
     <h1 style="font-family: Arial, sans-serif; color: #004d61;">Bienvenidos a EduBook</h1>
     <p style="font-family: Arial, sans-serif; color: #333;">Una plataforma para docentes y estudiantes</p>
 </div>
 
 <main style="text-align: center">
-  <a href="{%url "curso:curso_list"%}"><button style="font-family: Arial, sans-serif; color: #004d61;">Mostrar Cursos</button></a>
-  <a href="{%url "curso:comision_list"%}"><button style="font-family: Arial, sans-serif; color: #004d61;">Mostrar Comisiones</button></a>
-  <a href="{%url "curso:alumno_list"%}"><button style="font-family: Arial, sans-serif; color: #004d61;">Mostrar Alumnos</button></a>
+  <a href="{% url 'curso:curso_list' %}"><button style="font-family: Arial, sans-serif; color: #004d61;">Mostrar Cursos</button></a>
+  <a href="{% url 'curso:comision_list' %}"><button style="font-family: Arial, sans-serif; color: #004d61;">Mostrar Comisiones</button></a>
+  <a href="{% url 'curso:alumno_list' %}"><button style="font-family: Arial, sans-serif; color: #004d61;">Mostrar Alumnos</button></a>
   <a href="{% url 'curso:register' %}" ><button style="font-family: Arial, sans-serif; color: #004d61;">Registrar Usuario</button></a>
+  <a href="{% url 'core:about' %}"><button style="font-family: Arial, sans-serif; color: #004d61;">Ir a About</button></a>
+  
   {% if user.is_authenticated %}
         <!-- Si el usuario está autenticado, muestra el botón de Logout -->
         <a href="{% url 'curso:logout' %}"><button style="font-family: Arial, sans-serif; color: #004d61;">Cerrar Sesión</button></a>
@@ -18,6 +20,5 @@
         <!-- Si el usuario no está autenticado, muestra el botón de Login -->
         <a href="{% url 'curso:login' %}"><button style="font-family: Arial, sans-serif; color: #004d61;">Iniciar Sesión</button></a>
     {% endif %}
-    
 </main>
-{%endblock contenido %}
+{% endblock contenido %}

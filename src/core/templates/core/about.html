@@ -1,6 +1,18 @@
-{% extends 'core/about.html' %}
+{% extends 'core/base.html' %}
 
-{%block contenido %}
-<h1>Acerca de mi</h1>
-<p>Messi</p>
-{%endblock contenido %}
+{% block contenido %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; text-align: center;">
+    <a href="https://www.linkedin.com/in/alejo-kubar-6378921b4" target="_blank">
+        <button style="font-family: Arial, sans-serif; color: #ffffff; background-color: #0077b5; border: none; padding: 10px 20px; cursor: pointer; margin-bottom: 20px;">
+            Ir a mi LinkedIn
+        </button>
+    </a>
+
+    <!-- Botón para volver a la página de inicio -->
+    <a href="{% url 'core:index' %}">
+        <button style="font-family: Arial, sans-serif; color: #ffffff; background-color: #004d61; border: none; padding: 10px 20px; cursor: pointer;">
+            Volver a la Página de Inicio
+        </button>
+    </a>
+</div>
+{% endblock contenido %}
