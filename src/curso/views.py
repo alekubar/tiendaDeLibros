@@ -13,13 +13,13 @@ def index(request):
 def about(request):
     return render(request,"curso/about.html" )
 
-
+@login_required
 def curso_list(request):
     query = Curso.objects.all()
     context = {"object_list": query}
     return render(request, "curso/curso_list.html", context)
 
-
+@login_required
 def curso_create(request):
     if request.method == "GET":
         form = CursoForm()
@@ -31,13 +31,13 @@ def curso_create(request):
     return render(request, "curso/curso_form.html" , {"form" :form})
 
 
-
+@login_required
 def comision_list(request):
     query = Comision.objects.all()
     context = {"object_list": query}
     return render(request, "curso/comision_list.html", context)
 
-
+@login_required
 def comision_create(request):
     if request.method == "GET":
         form = ComisionForm()
@@ -51,13 +51,13 @@ def comision_create(request):
 
 
 
-
+@login_required
 def alumno_list(request):
     query = Alumno.objects.all()
     context = {"object_list": query}
     return render(request, "curso/alumno_list.html", context)
 
-
+@login_required
 def alumno_create(request):
     if request.method == "GET":
         form = AlumnoForm()
@@ -74,17 +74,29 @@ def register_user(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-
-            # Crear y guardar el usuario
-            User.objects.create_user(username=username, email=email, password=password)
-            
-            messages.success(request, "Usuario registrado exitosamente. ¡Ahora puedes iniciar sesión!")
-            return redirect('curso:login')  # Cambia 'curso:login' según tu URL para el login
+            # Guardar el usuario
+            form.save()
+            messages.success(request, "Usuario registrado correctamente. Ahora puedes iniciar sesión.")
+            return redirect('curso:login')  # Redirige a la página de login
     else:
         form = UserRegistrationForm()
     return render(request, 'curso/register.html', {'form': form})
 
 
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('curso:home')  # Redirige a la página principal
+        else:
+            messages.error(request, "Usuario o contraseña incorrectos.")
+    return render(request, 'curso/login.html')
+
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('curso:login')
