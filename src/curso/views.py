@@ -88,13 +88,16 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
-            return redirect('core:index')  # Redirige a la página principal
+            # Redirige al usuario a la página que estaba intentando acceder o a la página de inicio
+            next_page = request.GET.get('next', 'core:index')  # Recupera la URL de la redirección si existe
+            return redirect(next_page)
         else:
             messages.error(request, "Usuario o contraseña incorrectos.")
+    
     return render(request, 'curso/login.html')
-
 
 
 def logout_user(request):
