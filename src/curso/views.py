@@ -8,10 +8,10 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
-    return render(request, "curso/index.html")
+    return render(request, "core/index.html")
 
 def about(request):
-    return render(request,"curso/about.html" )
+    return render(request,"core/about.html" )
 
 @login_required
 def curso_list(request):
@@ -90,7 +90,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('curso:index')  # Redirige a la página principal
+            return redirect('core:index')  # Redirige a la página principal
         else:
             messages.error(request, "Usuario o contraseña incorrectos.")
     return render(request, 'curso/login.html')
