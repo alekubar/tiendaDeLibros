@@ -35,3 +35,9 @@ class UserRegistrationForm(forms.ModelForm):
         password_confirm = cleaned_data.get("password_confirm")
         if password and password_confirm and password != password_confirm:
             self.add_error('password_confirm', "Las contraseñas no coinciden")
+    def save(self, commit=True):
+        user = super().save(commit=False)  # Crear el objeto User pero sin guardarlo aún
+        user.set_password(self.cleaned_data["password"])  # Establecer la contraseña de manera segura
+        if commit:
+            user.save()  # Guardar el usuario en la base de datos
+        return user

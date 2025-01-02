@@ -90,7 +90,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('curso:home')  # Redirige a la página principal
+            return redirect('curso:index')  # Redirige a la página principal
         else:
             messages.error(request, "Usuario o contraseña incorrectos.")
     return render(request, 'curso/login.html')

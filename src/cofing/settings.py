@@ -117,12 +117,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/login'
 
-LOGIN_URL = 'curso:login'  # Asegúrate de que esto coincida con la URL de tu login
+LOGIN_URL = 'curso:index'  # Asegúrate de que esto coincida con la URL de tu login
